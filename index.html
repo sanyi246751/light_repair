@@ -25,11 +25,45 @@
       font-size: 26px;
       font-weight: 800;
     }
+
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, #93c5fd 0%, #f8fafc 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      color: #1e3a8a;
+      font-family: sans-serif;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(59, 130, 246, 0.2);
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <div id="splash-screen">
+      <div class="spinner"></div>
+      <div style="font-weight: bold; font-size: 18px;">雲端資料同步中...</div>
+    </div>
+  </div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 
