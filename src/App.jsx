@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import EXIF from 'exif-js';
+
 import './index.css';
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxdpaA2X-qwW4RNbMnIdHKCE3D92rlx6aztJnFIZ9CIlBWpK5ga8f2XedMLIpjLToIr/exec";
@@ -61,14 +61,16 @@ function App() {
                 const img = new Image();
                 img.src = dataUrl;
                 img.onload = () => {
-                    EXIF.getData(img, function () {
-                        const exifDate = EXIF.getTag(this, "DateTimeOriginal");
-                        if (exifDate) {
-                            const parts = exifDate.split(" ")[0].split(":");
-                            if (parts.length === 3) {
-                                setRDate(`${parts[0]}-${parts[1]}-${parts[2]}`);
+                    import('exif-js').then(({ default: EXIF }) => {
+                        EXIF.getData(img, function () {
+                            const exifDate = EXIF.getTag(this, "DateTimeOriginal");
+                            if (exifDate) {
+                                const parts = exifDate.split(" ")[0].split(":");
+                                if (parts.length === 3) {
+                                    setRDate(`${parts[0]}-${parts[1]}-${parts[2]}`);
+                                }
                             }
-                        }
+                        });
                     });
                 };
             }
