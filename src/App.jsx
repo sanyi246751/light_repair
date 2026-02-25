@@ -23,21 +23,10 @@ function App() {
     useEffect(() => {
         setRDate(new Date().toISOString().split("T")[0]);
 
-        // 優先從本機快取讀取
-        const cachedData = localStorage.getItem("project_data_cache");
-        if (cachedData) {
-            try {
-                setProjectData(JSON.parse(cachedData));
-            } catch (e) {
-                console.error("Cache parse error", e);
-            }
-        }
-
         fetch(SCRIPT_URL)
             .then(r => r.json())
             .then(d => {
                 setProjectData(d);
-                localStorage.setItem("project_data_cache", JSON.stringify(d));
             });
     }, []);
 
